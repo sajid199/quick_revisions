@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP S/4HANA Greenfield Security Lifecycle</title>
+<meta name="description" content="A practical SAP Activate security blueprint for a greenfield S/4HANA implementation with embedded Fiori, from project preparation through post-go-live operations, with simple interview answers.">
+<meta name="theme-color" content="#0B1E33">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/greenfield.css">
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="title-block">
+      <span class="eyebrow">SAP Activate · Security Delivery Blueprint</span>
+      <h1>S/4HANA Greenfield Security</h1>
+      <p class="subtitle">A stage-by-stage lifecycle for a secure SAP S/4HANA implementation with embedded Fiori, with a simple way to explain each stage in an interview.</p>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="ecc.html">ECC Security</a>
+      <a href="greenfrield.html" class="active" aria-current="page">S/4HANA Greenfield</a>
+      <a href="upgrade.html">ECC to S/4 Upgrade</a>
+      <a href="grc.html">GRC (AC)</a>
+      <a href="brfplus.html">BRF+ Cheat Sheet</a>
+      <a href="msmp.html">MSMP Simulator</a>
+      <a href="fiori.html">Fiori Security</a>
+      <a href="uar.html">UAR Review</a>
+    </nav>
+  </header>
+
+  <main>
+<div class="wrap">
+  <h2 id="timeline">1. Timeline – tap a phase</h2>
+  <p class="hint">Durations are typical ranges and vary by project size. Keyboard: Tab + Enter works too.</p>
+  <div class="phases" id="phases"></div>
+  <div class="bar" id="bar"></div>
+  <div class="total">Total duration: 9–15 months</div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+
+  <h2 id="interview-pitch">2. Your 60-second answer (edit the highlighted parts)</h2>
+  <div class="card">
+    <div class="pitch" id="pitch" contenteditable="true" spellcheck="false"></div>
+    <button class="act" id="copy">Copy pitch</button>
+  </div>
+
+  <h2 id="comparison">3. Greenfield vs Brownfield – security view</h2>
+  <div class="card scroll">
+    <table>
+      <tr><th>Area</th><th>Greenfield (new install)</th><th>Brownfield (system conversion)</th></tr>
+      <tr><td>Roles</td><td>Redesigned from scratch, clean and least-privilege</td><td>Existing ECC roles adjusted after SU25 / simplification items</td></tr>
+      <tr><td>Fiori</td><td>Fiori-first: catalogs, groups, spaces and pages designed upfront</td><td>Fiori added on top of legacy role structure</td></tr>
+      <tr><td>SoD</td><td>Ruleset and mitigations baselined before go-live</td><td>Inherited SoD conflicts must be cleaned up</td></tr>
+      <tr><td>Users</td><td>Migrated or newly provisioned, with fresh role mapping</td><td>Users and assignments carried over</td></tr>
+      <tr><td>Risk</td><td>Design effort and testing load are higher</td><td>Legacy access debt moves into S/4</td></tr>
+    </table>
+  </div>
+
+  <h2>4. Likely follow-up questions</h2>
+  <div id="qa"></div>
+
+  <div class="foot">Greenfield = fresh start, so security is designed in, not patched on.</div>
+</div>
+</main>
+
+<script>
+const P=[
+{n:"Discover & Prepare",d:"3–6 Months",c:"#2e9e4f",
+ do:["Join fit-to-standard workshops to understand business processes","Define security strategy and authorization concept","Agree naming conventions and role design approach (single vs composite, business roles)","Baseline compliance needs: SOX, internal audit, data privacy","Plan GRC scope: ARA, ARM, EAM, BRM","Plan identity and SSO approach"],
+ out:["Security concept / blueprint document","Role design methodology and naming standard","SoD ruleset baseline","Security workstream plan and RACI"],
+ say:"In this phase I make sure security is part of the design from day one. I join the process workshops, document the authorization concept, and agree the role strategy and SoD ruleset before anything is built.",
+ tags:["Blueprint","SoD ruleset","SOX"]},
+{n:"Design & Build",d:"4–8 Months",c:"#1f7ae0",
+ do:["Build backend roles in PFCG and maintain SU24 proposals","Design Fiori catalogs, groups, spaces and pages","Activate and secure OData services (/IWFND, /IWBEP)","Run GRC ARA risk analysis on designed roles before release","Configure GRC workflows (ARM) and Firefighter (EAM) setup","Set basic security parameters, SNC / SSO, table logging"],
+ out:["Role matrix and role-to-process mapping","Fiori role / catalog mapping","GRC configuration and workflows","Dev and config access control rules"],
+ say:"I build the roles to least-privilege, keep the Fiori catalog and backend authorizations aligned, and run SoD simulation in GRC at design time, so conflicts are fixed before testing instead of after go-live.",
+ tags:["PFCG","SU24","Fiori","GRC ARA"]},
+{n:"Test & Deploy",d:"2–3 Months",c:"#7a3fc0",
+ do:["Support UAT and integration tests with role-based test users","Troubleshoot missing authorizations using SU53, ST01 and STAUTHTRACE","Positive and negative testing of roles","Remediate SoD violations or assign mitigating controls","Get role owner and business sign-off","Transport and validate roles through the landscape"],
+ out:["Role test evidence","SoD remediation / mitigation report","Signed-off role-to-user mapping","Updated roles after defects"],
+ say:"During UAT I handle authorization defects fast with SU53 and traces, and I keep a clean record of every role change, because auditors will ask for that evidence later.",
+ tags:["SU53","ST01","STAUTHTRACE","UAT"]},
+{n:"Go-Live & Transition",d:"1–1.5 Months",c:"#ee7a14",
+ do:["Cutover: mass user creation and role assignment","Import final roles to production","Remove or lock SAP_ALL and developer access in production","Activate Firefighter IDs and emergency access process","Validate critical access and key users before opening the system","Run go-live access readiness checklist"],
+ out:["Production user and role load","Firefighter and controller setup","Go-live access readiness sign-off"],
+ say:"At cutover my focus is a controlled production: only the right users with the right roles, no broad access, and emergency access available but monitored.",
+ tags:["Cutover","Firefighter","SAP_ALL"]},
+{n:"Hypercare & Optimize",d:"1–2 Months",c:"#d9a000",
+ do:["Triage Day-1 access issues and tune roles","Fix missing or excess authorizations through proper approval workflow","Run first user access review and SoD review","Monitor mitigation controls and firefighter usage","Clean up unused roles and authorizations","Support internal and external audit"],
+ out:["Hypercare issue log and fixes","First UAR and SoD review results","Audit evidence pack","Role optimization backlog"],
+ say:"After go-live I stabilize access, close issues through the GRC workflow rather than quick fixes, and then move to periodic reviews and role optimization so the clean design stays clean.",
+ tags:["UAR","Hypercare","Audit"]}
+];
+const Q=[
+["What is the biggest security difference in Greenfield?","You are not carrying legacy roles or SoD debt. You redesign roles, align them with Fiori apps, and bake compliance in from the start. The trade-off is more design and testing effort."],
+["How do you avoid SoD problems before go-live?","Run GRC ARA risk analysis on roles at design time, fix conflicts in the role, and only use mitigating controls where the business truly needs the combination. Re-check during UAT and before cutover."],
+["How do you handle Fiori authorizations?","Backend roles (PFCG, SU24) must match the frontend catalogs and groups, and the OData services must be active and authorized. Missing pieces usually show up in SU53 or the Gateway error log."],
+["How do you troubleshoot an authorization error?","Ask the user to run SU53 right after the error, check ST01 or STAUTHTRACE if needed, find the missing object and values, fix the role via the proper request, test, and transport."],
+["What was your role in the project?","Use your own real example: roles you designed, GRC workflows you configured, SoD issues you remediated, and the audit or SOX outcomes you supported."]
+];
+const ph=document.getElementById("phases"),bar=document.getElementById("bar"),panel=document.getElementById("panel");
+P.forEach((p,i)=>{
+ const b=document.createElement("button");b.className="ph";b.style.background=p.c;
+ b.innerHTML="<b>"+p.n+"</b><span>"+p.d+"</span>";
+ b.onclick=()=>show(i);ph.appendChild(b);
+ const s=document.createElement("i");s.style.background=p.c;s.style.flex=[4.5,6,2.5,1.25,1.5][i];bar.appendChild(s);
+});
+function li(a){return a.map(x=>"<li>"+x+"</li>").join("")}
+function show(i){
+ const p=P[i];
+ [...ph.children].forEach((b,j)=>b.classList.toggle("on",j===i));
+ panel.style.setProperty("--c",p.c);
+ panel.innerHTML="<h3>"+(i+1)+". "+p.n+"</h3><div class=\"sub\">Typical duration: "+p.d+" · Security workstream</div>"
+ +"<div class=\"cols\"><div><h4>What security does</h4><ul>"+li(p.do)+"</ul></div><div><h4>Deliverables</h4><ul>"+li(p.out)+"</ul></div></div>"
+ +"<div class=\"tools\">"+p.tags.map(t=>"<span class=\"tag\">"+t+"</span>").join("")+"</div>"
+ +"<div class=\"say\"><small>How to say it in the interview</small>“"+p.say+"”</div>";
+}
+show(0);
+document.getElementById("pitch").innerHTML=
+"“I have <mark>5.5 years</mark> of experience in SAP Security and GRC across <mark>ECC and S/4HANA</mark>. In a Greenfield implementation, security is part of every phase. In <b>Discover and Prepare</b> I help define the authorization concept and SoD baseline. In <b>Design and Build</b> I build least-privilege backend and Fiori roles and run GRC risk analysis early. In <b>Test and Deploy</b> I support UAT, fix authorization issues with SU53 and traces, and remediate SoD. At <b>Go-Live</b> I handle user and role cutover and emergency access. In <b>Hypercare</b> I stabilize access and support reviews and audit. On my project I worked on <mark>[your specific modules / roles / GRC workflows]</mark> and delivered <mark>[your result, e.g. zero critical SoD at go-live]</mark>.”";
+document.getElementById("copy").onclick=function(){
+ const t=document.getElementById("pitch").innerText;
+ const done=()=>{this.textContent="Copied";setTimeout(()=>this.textContent="Copy pitch",1500)};
+ try{navigator.clipboard.writeText(t).then(done,done)}catch(e){done()}
+};
+const qa=document.getElementById("qa");
+Q.forEach(q=>{const d=document.createElement("details");d.innerHTML="<summary>"+q[0]+"</summary><p>"+q[1]+"</p>";qa.appendChild(d)});
+</script>
+<script src="js/nav-mobile.js"></script>
+</body>
+</html>

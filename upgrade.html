@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECC to S/4 Upgrade Steps – SAP Security Interview Guide</title>
+<meta name="description" content="Phase-wise SAP Security steps for an ECC to S/4HANA upgrade: SU25 steps, obsolete tcodes (BP, MIGO), meetings, testing, challenges and simple interview answers.">
+<meta name="theme-color" content="#0B1E33">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/upgrade.css">
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="title-block">
+      <span class="eyebrow">ECC to S/4HANA · Security Interview Guide</span>
+      <h1>ECC to S/4 Upgrade Steps</h1>
+      <p class="subtitle">What a SAP Security consultant does before, during and after the upgrade: SU25 steps, tcodes replaced by BP and MIGO, meetings, testing and challenges, in simple English.</p>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="ecc.html">ECC Security</a>
+      <a href="greenfrield.html">S/4HANA Greenfield</a>
+      <a href="upgrade.html" class="active" aria-current="page">ECC to S/4 Upgrade</a>
+      <a href="grc.html">GRC (AC)</a>
+      <a href="brfplus.html">BRF+ Cheat Sheet</a>
+      <a href="msmp.html">MSMP Simulator</a>
+      <a href="fiori.html">Fiori Security</a>
+      <a href="uar.html">UAR Review</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <div class="card intro"><b>One sentence:</b> Before the upgrade I find what will break, during it I keep access safe, after it I fix the roles with the client’s approval and prove it with tests.<br><button class="mode" id="mode" aria-pressed="false">Interview mode: show only what to say</button></div>
+    <nav class="subnav" aria-label="Sections on this page"><a href="#story">Story</a><a href="#phases">T1 to T7</a><a href="#su25">SU25</a><a href="#tcodes">Tcodes</a><a href="#paths">Green vs Brown</a><a href="#prep">Checklist</a><a href="#meet">Meetings</a><a href="#test">Testing</a><a href="#chal">Challenges</a><a href="#pitch">60-sec answer</a></nav>
+    <main>
+
+<h2 id="story">1. The story in 3 acts</h2>
+<p class="hint">Start every answer with this. Then go deeper only if the interviewer asks.</p>
+<div class="grid" id="acts"></div>
+
+<h2 id="phases">2. Phase-wise: T1 to T7</h2>
+<p class="hint">Same as the conversion overview diagram. Tap a milestone.</p>
+<div class="tl" id="tl"></div>
+<div class="card" id="tp" aria-live="polite"></div>
+
+<h2 id="su25">3. SU25 steps in simple words</h2>
+<p class="hint">Idea: SAP ships new authorization proposals. SU25 brings them into your system and then into your roles. Tap a step. Wording of 2a to 2d varies by release, so check the info icon in SU25. In the diagram they run after the upgrade as “Run Profile Generator”.</p>
+<div class="flow" id="flow"></div>
+<div class="card" id="fp" aria-live="polite"></div>
+
+<h2 id="tcodes">4. Tcodes that go away</h2>
+<div class="big"><div class="card"><b>BP</b>replaces roughly 30 vendor and customer tcodes (XK01, XD01, MK01, VD01, FK01, FD01 and similar)</div><div class="card"><b>MIGO</b>replaces a dozen or more MB tcodes (MB01, MB1A, MB1B, MB1C, MB11, MB31 and similar)</div></div>
+<div class="say"><small>How to say it</small>“The exact count depends on the release, so I take the final list from table <code>PRGN_CORR2</code> and report <code>PROFGEN_CORR_REPORT_2</code>.”</div>
+<div class="card more"><input type="search" id="q" placeholder="Search an old tcode, e.g. XK01 or MB1A" aria-label="Search tcodes">
+<div class="scroll"><table><thead><tr><th>Old tcodes (examples)</th><th>Replaced by</th><th>Area</th></tr></thead><tbody id="tc"></tbody></table></div>
+<p class="note">Examples only. Confirm each tcode in your own system before telling the business.</p></div>
+
+<h2 id="paths">5. Greenfield vs Brownfield</h2>
+<div class="two">
+<div class="card"><h3 style="margin:0">Brownfield (conversion)</h3><p class="note">Keep existing roles and fix them.</p><ol class="l"><li>Run <code>SU24_AUTO_REPAIR</code></li><li>Run SU25D, share which roles are affected</li><li>Share PRGN_CORR2 and PROFGEN_CORR_REPORT_2 reports</li><li>Review call with business, record decisions</li><li>SU25 2a / 2b / 2c</li><li>SU25 step 3: capture in TR</li></ol></div>
+<div class="card"><h3 style="margin:0">Greenfield (new install)</h3><p class="note">Start fresh and design roles properly.</p><ol class="l"><li>SU25 step 1</li><li>SU25 2a / 2b / 2c</li><li>SU25 step 3: capture in TR</li><li>Copy SAP roles to Z roles for functional team</li><li>Role design discussion, then role creation</li><li>Test IDs, UAT, go-live, hypercare</li></ol></div></div>
+
+<h2 id="prep">6. Prerequisites checklist</h2>
+<p class="hint">Tick as you revise. Say the first five out loud.</p>
+<div class="card chk" id="chk"><b id="pc">0% ready</b><div class="prog"><i id="pb"></i></div></div>
+
+<h2 id="meet">7. Meetings you attend</h2>
+<div class="pq" id="mt"></div>
+
+<h2 id="test">8. Testing you support</h2>
+<div class="grid" id="ts"></div>
+
+<h2 id="chal">9. Challenges and your answer</h2>
+<div class="pq" id="ch"></div>
+
+<h2 id="pitch">10. Your 60-second answer</h2>
+<p class="hint">Edit the highlighted parts with your own project details.</p>
+<div class="card"><div id="pt" contenteditable="true" spellcheck="false" style="line-height:1.8"></div><button class="go" id="copy">Copy answer</button></div>
+<div id="qa"></div>
+</main>
+    <div class="foot">Before: find what breaks. During: stay safe. After: fix, approve, prove.</div>
+  </div>
+</div>
+<script src="js/upgrade.js"></script>
+<script src="js/nav-mobile.js"></script>
+</body>
+</html>
