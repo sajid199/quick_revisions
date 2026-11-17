@@ -430,6 +430,84 @@
     </div>
   </div>
 
+  <!-- ============================================================ -->
+  <!-- SoD Risk Examples (easy to remember) -->
+  <!-- ============================================================ -->
+  <div class="section-title">SoD Risk Examples: Easy to Remember</div>
+
+  <div class="row1">
+    <div class="panel">
+      <h2>Remember 4 patterns</h2>
+      <div class="pill-row">
+        <span class="pill">Create + Approve</span>
+        <span class="pill">Master data + Posting</span>
+        <span class="pill">Posting + Payment</span>
+        <span class="pill">Build + Release</span>
+      </div>
+      <ul class="kv-list">
+        <li><b>Create + Approve:</b> one person makes it and also approves it.</li>
+        <li><b>Master data + Posting:</b> one person makes a fake vendor or customer and also posts to it.</li>
+        <li><b>Posting + Payment:</b> one person records the transaction and also moves the money.</li>
+        <li><b>Build + Release (IT):</b> one person changes the system and also puts the change live.</li>
+      </ul>
+      <div class="param-callout">
+        <span><b>How to say it:</b> a SoD risk is two functions one person should not hold together.</span>
+        <span>If the business needs both, I use a mitigating control with an owner.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-grid">
+
+    <div class="module-card ara">
+      <span class="badge">MM</span>
+      <h3>Procurement (MM)</h3>
+      <ul class="kv-list">
+        <li><b>Fake vendor paid:</b> <code class="tbl">XK01</code> / <code class="tbl">BP</code> + <code class="tbl">MIRO</code></li>
+        <li><b>Self-approved PO:</b> <code class="tbl">ME21N</code> + <code class="tbl">ME29N</code></li>
+        <li><b>No 3-way match:</b> <code class="tbl">MIGO</code> + <code class="tbl">MIRO</code></li>
+        <li><b>Pay own vendor:</b> <code class="tbl">XK01</code> / <code class="tbl">BP</code> + <code class="tbl">F110</code></li>
+        <li><b>Stock hiding:</b> <code class="tbl">MM02</code> + <code class="tbl">MI07</code></li>
+      </ul>
+    </div>
+
+    <div class="module-card arm">
+      <span class="badge">SD</span>
+      <h3>Sales (SD)</h3>
+      <ul class="kv-list">
+        <li><b>Fake customer sale:</b> <code class="tbl">XD01</code> / <code class="tbl">BP</code> + <code class="tbl">VA01</code></li>
+        <li><b>Fake discount:</b> <code class="tbl">VK11</code> + <code class="tbl">VA01</code></li>
+        <li><b>Credit limit bypass:</b> <code class="tbl">VA01</code> + <code class="tbl">VKM1</code></li>
+        <li><b>Bill without delivery:</b> <code class="tbl">VL02N</code> + <code class="tbl">VF01</code></li>
+        <li><b>Hide theft with credit memo:</b> <code class="tbl">VA01</code> + <code class="tbl">F-28</code></li>
+      </ul>
+    </div>
+
+    <div class="module-card eam">
+      <span class="badge">FICO</span>
+      <h3>Finance (FICO)</h3>
+      <ul class="kv-list">
+        <li><b>Self-approved journal:</b> <code class="tbl">FB50</code> + <code class="tbl">FBV0</code></li>
+        <li><b>Pay to changed bank:</b> <code class="tbl">FK02</code> / <code class="tbl">BP</code> + <code class="tbl">F110</code></li>
+        <li><b>Post in closed period:</b> <code class="tbl">OB52</code> + <code class="tbl">FB50</code></li>
+        <li><b>Lapping:</b> <code class="tbl">XD02</code> / <code class="tbl">BP</code> + <code class="tbl">F-28</code></li>
+        <li><b>Asset theft:</b> <code class="tbl">AS01</code> + <code class="tbl">ABAVN</code></li>
+      </ul>
+    </div>
+
+    <div class="module-card brm">
+      <span class="badge">IT</span>
+      <h3>IT, Basis and Security</h3>
+      <ul class="kv-list">
+        <li><b>Create user + give any role:</b> <code class="tbl">SU01</code> + <code class="tbl">PFCG</code></li>
+        <li><b>Unreviewed code live:</b> <code class="tbl">SE38</code> + <code class="tbl">STMS</code></li>
+        <li><b>Edit table + post data:</b> <code class="tbl">SE16N</code> + business tcode</li>
+        <li><b>Hide own activity:</b> <code class="tbl">SU01</code> + <code class="tbl">SM19</code></li>
+        <li><b>FF owner is also controller:</b> EAM</li>
+      </ul>
+    </div>
+  </div>
+
   <footer>SAP GRC (AC) Cheat Sheet · Redesigned reference layout</footer>
 </div>
 <script src="js/nav-mobile.js"></script>
